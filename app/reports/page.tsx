@@ -15,6 +15,9 @@ export const metadata: Metadata = createPageMetadata({
   image: "/images/classroom-writing.jpeg"
 });
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function ReportsPage() {
   const reports = await getAllReports();
 

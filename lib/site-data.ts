@@ -6,23 +6,24 @@ export type ActivityReport = {
   category: string;
   excerpt: string;
   image: string;
-  body: string[];
+  contentHtml: string;
+  gallery: {
+    url: string;
+    width?: number;
+    height?: number;
+  }[];
 };
 
 export type Recruitment = {
   id: string;
   slug: string;
   title: string;
-  status: "open" | "scheduled" | "closed" | "draft";
-  period: string;
-  deadline: string;
-  fee: string;
-  travelCost: string;
-  accommodationCost: string;
-  discount: string;
-  capacity: string;
-  formUrl: string;
-  note: string;
+  image: string;
+  excerpt: string;
+  contentHtml: string;
+  applicationUrl: string;
+  isOpen: boolean;
+  publishedAt: string;
 };
 
 export const navItems = [
@@ -46,10 +47,9 @@ export const activityReports: ActivityReport[] = [
     category: "3Days School",
     excerpt: "図工や理科の実技授業を通して、子どもたちと学生が一緒に挑戦した記録です。",
     image: "/images/classroom-writing.jpeg",
-    body: [
-      "3Days Schoolでは、日本人大学生が先生となり、スポーツ、図工、理科などの実技授業を行います。",
-      "正解を覚えることだけではなく、できた、楽しい、もう一度やってみたいという成功体験を大切にしています。"
-    ]
+    contentHtml:
+      "<p>3Days Schoolでは、日本人大学生が先生となり、スポーツ、図工、理科などの実技授業を行います。</p><p>正解を覚えることだけではなく、できた、楽しい、もう一度やってみたいという成功体験を大切にしています。</p>",
+    gallery: []
   },
   {
     id: "mock-report-meal",
@@ -59,10 +59,9 @@ export const activityReports: ActivityReport[] = [
     category: "炊き出し",
     excerpt: "炊き出しは食事支援だけではなく、子どもたちと自然に言葉を交わす入口になっています。",
     image: "/images/meal.jpeg",
-    body: [
-      "活動期間中には、子どもたちが安心して活動に参加できるよう、食事を提供しています。",
-      "食事の時間は、子どもたちと大学生が自然に会話し、関係をつくるきっかけにもなります。"
-    ]
+    contentHtml:
+      "<p>活動期間中には、子どもたちが安心して活動に参加できるよう、食事を提供しています。</p><p>食事の時間は、子どもたちと大学生が自然に会話し、関係をつくるきっかけにもなります。</p>",
+    gallery: []
   },
   {
     id: "mock-report-sports",
@@ -72,10 +71,9 @@ export const activityReports: ActivityReport[] = [
     category: "スポーツ体験",
     excerpt: "身体を動かし、仲間と協力しながら、できたという感覚を積み重ねました。",
     image: "/images/sports.jpeg",
-    body: [
-      "サッカーや運動遊びを通して、身体を動かす楽しさ、仲間と協力する経験、挑戦する楽しさを届けています。",
-      "過去の活動では、裸足で運動する子どもたちの姿から靴の寄付にもつながりました。"
-    ]
+    contentHtml:
+      "<p>サッカーや運動遊びを通して、身体を動かす楽しさ、仲間と協力する経験、挑戦する楽しさを届けています。</p><p>過去の活動では、裸足で運動する子どもたちの姿から靴の寄付にもつながりました。</p>",
+    gallery: []
   }
 ];
 
@@ -84,31 +82,25 @@ export const recruitments: Recruitment[] = [
     id: "mock-2026-summer-1",
     slug: "2026-summer-1",
     title: "2026年夏 3Days School 第1回",
-    status: "draft",
-    period: "8月19日〜25日",
-    deadline: "7月17日",
-    fee: "参加費 50,000円",
-    travelCost: "飛行機代 約40,000円",
-    accommodationCost: "宿泊 約20,000円",
-    discount: "紹介 40,000円",
-    capacity: "確認中",
-    formUrl: "",
-    note: "資料記載情報をもとにした過去の募集例です。最新の募集情報ではありません。"
+    image: "/placeholder-image.jpg",
+    excerpt: "資料記載情報をもとにした過去の募集例です。最新の募集情報ではありません。",
+    contentHtml:
+      "<p>2026年夏の過去の募集例です。公開中の募集としては使用しないでください。</p>",
+    applicationUrl: "",
+    isOpen: false,
+    publishedAt: "2026-01-01T00:00:00.000Z"
   },
   {
     id: "mock-2026-summer-2",
     slug: "2026-summer-2",
     title: "2026年夏 3Days School 第2回",
-    status: "draft",
-    period: "8月26日〜9月1日",
-    deadline: "7月17日",
-    fee: "参加費 50,000円 / 紹介 40,000円",
-    travelCost: "飛行機代 約40,000円",
-    accommodationCost: "宿泊 約20,000円",
-    discount: "紹介 40,000円",
-    capacity: "確認中",
-    formUrl: "",
-    note: "資料記載情報をもとにした過去の募集例です。最新の募集情報ではありません。"
+    image: "/placeholder-image.jpg",
+    excerpt: "資料記載情報をもとにした過去の募集例です。最新の募集情報ではありません。",
+    contentHtml:
+      "<p>2026年夏の過去の募集例です。公開中の募集としては使用しないでください。</p>",
+    applicationUrl: "",
+    isOpen: false,
+    publishedAt: "2026-01-01T00:00:00.000Z"
   }
 ];
 

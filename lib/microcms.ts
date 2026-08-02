@@ -3,6 +3,37 @@ import type { ActivityReport, Recruitment } from "./site-data";
 
 const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
 const apiKey = process.env.MICROCMS_API_KEY;
+const placeholderImage = "/placeholder-image.jpg";
+
+type MicroCMSImage = {
+  url: string;
+  width?: number;
+  height?: number;
+};
+
+type MicroCMSReport = {
+  id: string;
+  title?: string;
+  slug?: string;
+  category?: string;
+  gallery?: MicroCMSImage[];
+  thumbnail?: MicroCMSImage;
+  excerpt?: string;
+  content?: string;
+  publishedAt?: string;
+};
+
+type MicroCMSRecruitment = {
+  id: string;
+  title?: string;
+  slug?: string;
+  thumbnail?: MicroCMSImage;
+  excerpt?: string;
+  content?: string;
+  applicationUrl?: string;
+  isOpen?: boolean;
+  publishedAt?: string;
+};
 
 type MicroCMSListResponse<T> = {
   contents: T[];
@@ -17,59 +48,43 @@ type DetailResult<T> =
   | { status: "preparing"; item: null }
   | { status: "missing"; item: null };
 
-function normalizeImage(image: unknown, fallback: string) {
-  if (typeof image === "string" && image.length > 0) {
-    return image;
+function formatPublishedDate(publishedAt?: string) {
+  if (!publishedAt) {
+    return "";
   }
 
-  if (image && typeof image === "object" && "url" in image && typeof image.url === "string") {
-    return image.url;
+  const date = new Date(publishedAt);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
   }
 
-  return fallback;
+  return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  })
+    .format(date)
+    .replaceAll("/", ".");
 }
 
-function normalizeBody(body: unknown, fallback: string[]) {
-  if (Array.isArray(body)) {
-    return body.map((item) => String(item)).filter(Boolean);
+function sanitizeMicroCMSHtml(html?: string) {
+  if (!html) {
+    return "";
   }
 
-  if (typeof body === "string" && body.length > 0) {
-    return [body];
-  }
-
-  return fallback;
+  return html
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, "")
+    .replace(/<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi, "")
+    .replace(/<\/?(object|embed|form|input|button|textarea|select|option|meta|link)[^>]*?>/gi, "")
+    .replace(/\son\w+="[^"]*"/gi, "")
+    .replace(/\son\w+='[^']*'/gi, "")
+    .replace(/\s(href|src)=["']javascript:[^"']*["']/gi, "");
 }
 
-function normalizeReport(item: Partial<ActivityReport>, fallback: ActivityReport): ActivityReport {
-  return {
-    id: item.id ?? fallback.id,
-    slug: item.slug ?? fallback.slug,
-    title: item.title ?? fallback.title,
-    date: item.date ?? fallback.date,
-    category: item.category ?? fallback.category,
-    excerpt: item.excerpt ?? fallback.excerpt,
-    image: normalizeImage(item.image, fallback.image),
-    body: normalizeBody(item.body, fallback.body)
-  };
-}
-
-function normalizeRecruitment(item: Partial<Recruitment>, fallback: Recruitment): Recruitment {
-  return {
-    id: item.id ?? fallback.id,
-    slug: item.slug ?? fallback.slug,
-    title: item.title ?? fallback.title,
-    status: item.status ?? fallback.status,
-    period: item.period ?? fallback.period,
-    deadline: item.deadline ?? fallback.deadline,
-    fee: item.fee ?? fallback.fee,
-    travelCost: item.travelCost ?? fallback.travelCost,
-    accommodationCost: item.accommodationCost ?? fallback.accommodationCost,
-    discount: item.discount ?? fallback.discount,
-    capacity: item.capacity ?? fallback.capacity,
-    formUrl: item.formUrl ?? fallback.formUrl,
-    note: item.note ?? fallback.note
-  };
+function encodeFilters(filter: string) {
+  return encodeURIComponent(filter);
 }
 
 async function fetchListFromMicroCMS<T>(endpoint: string): Promise<FetchResult<T>> {
@@ -79,10 +94,10 @@ async function fetchListFromMicroCMS<T>(endpoint: string): Promise<FetchResult<T
 
   try {
     const response = await fetch(`https://${serviceDomain}.microcms.io/api/v1/${endpoint}`, {
+      cache: "no-store",
       headers: {
         "X-MICROCMS-API-KEY": apiKey
-      },
-      next: { revalidate: 300 }
+      }
     });
 
     if (!response.ok) {
@@ -101,8 +116,44 @@ async function fetchListFromMicroCMS<T>(endpoint: string): Promise<FetchResult<T
   }
 }
 
+function normalizeReportFromCMS(item: MicroCMSReport): ActivityReport {
+  return {
+    id: item.id,
+    slug: item.slug ?? "",
+    title: item.title ?? "",
+    date: formatPublishedDate(item.publishedAt),
+    category: item.category ?? "",
+    excerpt: item.excerpt ?? "",
+    image: item.thumbnail?.url ?? placeholderImage,
+    contentHtml: sanitizeMicroCMSHtml(item.content),
+    gallery: Array.isArray(item.gallery)
+      ? item.gallery
+          .filter((image): image is MicroCMSImage => Boolean(image?.url))
+          .map((image) => ({
+            url: image.url,
+            width: image.width,
+            height: image.height
+          }))
+      : []
+  };
+}
+
+function normalizeRecruitmentFromCMS(item: MicroCMSRecruitment): Recruitment {
+  return {
+    id: item.id,
+    slug: item.slug ?? "",
+    title: item.title ?? "",
+    image: item.thumbnail?.url ?? placeholderImage,
+    excerpt: item.excerpt ?? "",
+    contentHtml: sanitizeMicroCMSHtml(item.content),
+    applicationUrl: item.applicationUrl ?? "",
+    isOpen: Boolean(item.isOpen),
+    publishedAt: formatPublishedDate(item.publishedAt)
+  };
+}
+
 export async function getLatestReports() {
-  const result = await fetchListFromMicroCMS<Partial<ActivityReport>>("reports?limit=3");
+  const result = await fetchListFromMicroCMS<MicroCMSReport>("reports?limit=3&orders=-publishedAt");
 
   if (!result.ok) {
     return [];
@@ -112,11 +163,11 @@ export async function getLatestReports() {
     return activityReports.slice(0, 3);
   }
 
-  return result.contents.map((item, index) => normalizeReport(item, activityReports[index] ?? activityReports[0]));
+  return result.contents.map(normalizeReportFromCMS).filter((report) => report.slug && report.title);
 }
 
 export async function getAllReports() {
-  const result = await fetchListFromMicroCMS<Partial<ActivityReport>>("reports?limit=100");
+  const result = await fetchListFromMicroCMS<MicroCMSReport>("reports?limit=100&orders=-publishedAt");
 
   if (!result.ok) {
     return [];
@@ -126,7 +177,7 @@ export async function getAllReports() {
     return activityReports;
   }
 
-  return result.contents.map((item, index) => normalizeReport(item, activityReports[index] ?? activityReports[0]));
+  return result.contents.map(normalizeReportFromCMS).filter((report) => report.slug && report.title);
 }
 
 export async function getReportBySlug(slug: string) {
@@ -135,23 +186,23 @@ export async function getReportBySlug(slug: string) {
 }
 
 export async function getReportBySlugResult(slug: string): Promise<DetailResult<ActivityReport>> {
-  const result = await fetchListFromMicroCMS<Partial<ActivityReport>>("reports?limit=100");
+  const filters = encodeFilters(`slug[equals]${slug}`);
+  const result = await fetchListFromMicroCMS<MicroCMSReport>(`reports?filters=${filters}&limit=1`);
 
   if (!result.ok) {
     return { status: "preparing", item: null };
   }
 
-  const reports =
-    result.contents.length === 0
-      ? activityReports
-      : result.contents.map((item, index) => normalizeReport(item, activityReports[index] ?? activityReports[0]));
-  const report = reports.find((item) => item.slug === slug || item.id === slug);
+  if (result.contents.length === 0) {
+    return { status: "missing", item: null };
+  }
 
-  return report ? { status: "ready", item: report } : { status: "missing", item: null };
+  const report = normalizeReportFromCMS(result.contents[0]);
+  return report.slug && report.title ? { status: "ready", item: report } : { status: "missing", item: null };
 }
 
 export async function getCurrentRecruitments() {
-  const result = await fetchListFromMicroCMS<Partial<Recruitment>>("recruitments?limit=2");
+  const result = await fetchListFromMicroCMS<MicroCMSRecruitment>("recruitments?limit=2&orders=-publishedAt");
 
   if (!result.ok) {
     return [];
@@ -161,11 +212,11 @@ export async function getCurrentRecruitments() {
     return recruitments.slice(0, 2);
   }
 
-  return result.contents.map((item, index) => normalizeRecruitment(item, recruitments[index] ?? recruitments[0]));
+  return result.contents.map(normalizeRecruitmentFromCMS).filter((item) => item.slug && item.title);
 }
 
 export async function getAllRecruitments() {
-  const result = await fetchListFromMicroCMS<Partial<Recruitment>>("recruitments?limit=100");
+  const result = await fetchListFromMicroCMS<MicroCMSRecruitment>("recruitments?limit=100&orders=-publishedAt");
 
   if (!result.ok) {
     return [];
@@ -175,7 +226,7 @@ export async function getAllRecruitments() {
     return recruitments;
   }
 
-  return result.contents.map((item, index) => normalizeRecruitment(item, recruitments[index] ?? recruitments[0]));
+  return result.contents.map(normalizeRecruitmentFromCMS).filter((item) => item.slug && item.title);
 }
 
 export async function getRecruitmentBySlug(slug: string) {
@@ -184,17 +235,17 @@ export async function getRecruitmentBySlug(slug: string) {
 }
 
 export async function getRecruitmentBySlugResult(slug: string): Promise<DetailResult<Recruitment>> {
-  const result = await fetchListFromMicroCMS<Partial<Recruitment>>("recruitments?limit=100");
+  const filters = encodeFilters(`slug[equals]${slug}`);
+  const result = await fetchListFromMicroCMS<MicroCMSRecruitment>(`recruitments?filters=${filters}&limit=1`);
 
   if (!result.ok) {
     return { status: "preparing", item: null };
   }
 
-  const recruitmentsData =
-    result.contents.length === 0
-      ? recruitments
-      : result.contents.map((item, index) => normalizeRecruitment(item, recruitments[index] ?? recruitments[0]));
-  const item = recruitmentsData.find((recruitment) => recruitment.slug === slug || recruitment.id === slug);
+  if (result.contents.length === 0) {
+    return { status: "missing", item: null };
+  }
 
-  return item ? { status: "ready", item } : { status: "missing", item: null };
+  const item = normalizeRecruitmentFromCMS(result.contents[0]);
+  return item.slug && item.title ? { status: "ready", item } : { status: "missing", item: null };
 }

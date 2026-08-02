@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
@@ -16,10 +17,11 @@ export const metadata: Metadata = createPageMetadata({
 
 const statusLabels = {
   open: "募集中",
-  scheduled: "募集予定",
-  closed: "募集終了",
-  draft: "過去の募集例"
+  closed: "募集終了"
 };
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function RecruitmentsPage() {
   const recruitments = await getAllRecruitments();
@@ -42,14 +44,20 @@ export default async function RecruitmentsPage() {
                 <h2 className="mt-4 text-3xl font-black text-trust-900 sm:text-5xl">募集情報一覧</h2>
                 <div className="mt-8 grid gap-5 md:grid-cols-2">
                   {recruitments.map((item) => (
-                    <Link key={item.id} href={`/recruitments/${item.slug}`} className="rounded-[24px] border border-mint-100 bg-paper p-6 transition hover:-translate-y-1 hover:shadow-soft">
-                      <p className="inline-flex rounded-full bg-coral/12 px-3 py-1 text-xs font-black text-coral">{statusLabels[item.status]}</p>
-                      <h3 className="mt-5 text-2xl font-black text-trust-900">{item.title}</h3>
-                      <p className="mt-5 text-sm leading-7 text-trust-900/62">{item.period}</p>
-                      <p className="mt-2 text-sm leading-7 text-trust-900/62">{item.deadline}</p>
-                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-mint-700">
-                        詳細を見る <ArrowRight size={16} />
-                      </span>
+                    <Link key={item.id} href={`/recruitments/${item.slug}`} className="overflow-hidden rounded-[24px] border border-mint-100 bg-paper transition hover:-translate-y-1 hover:shadow-soft">
+                      <div className="relative aspect-[4/3]">
+                        <Image src={item.image} alt={item.title} fill className="object-cover" sizes="(min-width: 768px) 42vw, 100vw" />
+                      </div>
+                      <div className="p-6">
+                        <p className="inline-flex rounded-full bg-coral/12 px-3 py-1 text-xs font-black text-coral">
+                          {statusLabels[item.isOpen ? "open" : "closed"]}
+                        </p>
+                        <h3 className="mt-5 text-2xl font-black text-trust-900">{item.title}</h3>
+                        <p className="mt-5 text-sm leading-7 text-trust-900/62">{item.excerpt}</p>
+                        <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-mint-700">
+                          詳細を見る <ArrowRight size={16} />
+                        </span>
+                      </div>
                     </Link>
                   ))}
                 </div>

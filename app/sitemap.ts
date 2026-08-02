@@ -15,6 +15,11 @@ const staticRoutes = [
   "/privacy"
 ];
 
+function parseLastModified(date: string) {
+  const parsed = new Date(date.replaceAll(".", "-"));
+  return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [reports, recruitments] = await Promise.all([getAllReports(), getAllRecruitments()]);
 
@@ -27,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     ...reports.map((report) => ({
       url: `${siteConfig.url}/reports/${report.slug}`,
-      lastModified: new Date(report.date.replaceAll(".", "-")),
+      lastModified: parseLastModified(report.date),
       changeFrequency: "monthly" as const,
       priority: 0.6
     })),

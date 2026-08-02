@@ -18,7 +18,7 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-5 text-sm font-semibold text-trust-900 lg:flex">
-          {navItems.slice(1, 7).map((item) => (
+          {navItems.filter((item) => item.href !== "/" && item.href !== "/contact").map((item) => (
             <Link key={item.href} href={item.href} className="transition hover:text-mint-700">
               {item.label}
             </Link>

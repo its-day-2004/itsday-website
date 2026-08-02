@@ -6,12 +6,10 @@ import { ArrowLeft } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
-import { getAllReports, getReportBySlugResult } from "@/lib/microcms";
+import { getReportBySlugResult } from "@/lib/microcms";
 
-export async function generateStaticParams() {
-  const reports = await getAllReports();
-  return reports.map((report) => ({ slug: report.slug }));
-}
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -98,12 +96,29 @@ export default async function ReportDetailPage({ params }: { params: Promise<{ s
             <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] photo-shadow">
               <Image src={report.image} alt={report.title} fill className="object-cover" sizes="100vw" />
             </div>
-            <div className="mt-10 space-y-6 text-base leading-8 text-trust-900/74">
-              {report.body.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+            <div
+              className="mt-10 space-y-6 text-base leading-8 text-trust-900/74 [&_a]:font-bold [&_a]:text-mint-700 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-trust-900 [&_h3]:text-xl [&_h3]:font-black [&_h3]:text-trust-900 [&_img]:rounded-[20px] [&_li]:ml-5 [&_li]:list-disc"
+              dangerouslySetInnerHTML={{ __html: report.contentHtml }}
+            />
+            {report.gallery.length > 0 && (
+              <div className="mt-12">
+                <h2 className="text-2xl font-black text-trust-900">ギャラリー</h2>
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
+                  {report.gallery.map((image) => (
+                    <div key={image.url} className="relative aspect-[4/3] overflow-hidden rounded-[22px] bg-paper">
+                      <Image
+                        src={image.url}
+                        alt={`${report.title}の活動写真`}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 768px) 42vw, 100vw"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             </div>
-          </div>
         </article>
       </PageFrame>
       <Footer />

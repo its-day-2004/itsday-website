@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
-import { getAllRecruitments, getRecruitmentBySlugResult } from "@/lib/microcms";
+import { getRecruitmentBySlugResult } from "@/lib/microcms";
 import { siteConfig } from "@/lib/seo";
 
 const statusLabels = {
   open: "募集中",
-  scheduled: "募集予定",
-  closed: "募集終了",
-  draft: "過去の募集例"
+  closed: "募集終了"
 };
 
-export async function generateStaticParams() {
-  const recruitments = await getAllRecruitments();
-  return recruitments.map((item) => ({ slug: item.slug }));
-}
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -31,10 +28,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   const item = result.item;
+  const description = item.excerpt || `${item.title}の募集情報です。募集状況や応募リンクを掲載しています。`;
 
   return {
     title: item.title,
-    description: `${item.title}の募集情報です。募集状況や応募期限は必ず最新情報を確認してください。`,
+    description,
     alternates: {
       canonical: `/recruitments/${item.slug}`
     },
@@ -43,21 +41,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: `/recruitments/${item.slug}`,
       siteName: siteConfig.name,
       title: item.title,
-      description: `${item.title}の募集情報です。募集状況や応募期限は必ず最新情報を確認してください。`,
+      description,
       images: [
         {
-          url: siteConfig.ogImage,
+          url: item.image,
           width: 1200,
           height: 630,
-          alt: "ITS DAYの募集情報"
+          alt: item.title
         }
       ]
     },
     twitter: {
       card: "summary_large_image",
       title: item.title,
-      description: `${item.title}の募集情報です。募集状況や応募期限は必ず最新情報を確認してください。`,
-      images: [siteConfig.ogImage]
+      description,
+      images: [item.image]
     }
   };
 }
@@ -94,26 +92,23 @@ export default async function RecruitmentDetailPage({ params }: { params: Promis
   const item = result.item;
 
   const details = [
-    ["活動期間", item.period],
-    ["応募締切", item.deadline],
-    ["参加費", item.fee],
-    ["紹介割引", item.discount],
-    ["航空券代", item.travelCost],
-    ["宿泊費", item.accommodationCost],
-    ["募集人数", item.capacity],
-    ["募集状況", statusLabels[item.status]]
+    ["公開日", item.publishedAt || "未設定"],
+    ["募集状況", statusLabels[item.isOpen ? "open" : "closed"]]
   ];
 
   return (
     <>
       <Header />
       <PageFrame>
-        <PageHero eyebrow="RECRUITMENT" title={item.title} text={item.note || "募集情報の詳細を掲載しています。"} />
+        <PageHero eyebrow="RECRUITMENT" title={item.title} text={item.excerpt || "募集情報の詳細を掲載しています。"} image={item.image} />
         <section className="bg-white py-16 sm:py-24">
           <div className="section-shell max-w-4xl">
             <Link href="/recruitments" className="mb-8 inline-flex items-center gap-2 text-sm font-black text-mint-700">
               <ArrowLeft size={16} /> 募集情報一覧へ
             </Link>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] photo-shadow">
+              <Image src={item.image} alt={item.title} fill className="object-cover" sizes="100vw" />
+            </div>
             <div className="grid gap-px overflow-hidden rounded-[24px] bg-mint-100">
               {details.map(([label, value]) => (
                 <div key={label} className="grid gap-2 bg-paper p-5 sm:grid-cols-[180px_1fr]">
@@ -122,8 +117,12 @@ export default async function RecruitmentDetailPage({ params }: { params: Promis
                 </div>
               ))}
             </div>
-            {item.formUrl ? (
-              <Link href={item.formUrl} className="mt-8 inline-flex items-center justify-center rounded-full bg-trust-900 px-6 py-3 text-sm font-black text-white">
+            <div
+              className="mt-10 space-y-6 text-base leading-8 text-trust-900/74 [&_a]:font-bold [&_a]:text-mint-700 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-trust-900 [&_h3]:text-xl [&_h3]:font-black [&_h3]:text-trust-900 [&_img]:rounded-[20px] [&_li]:ml-5 [&_li]:list-disc"
+              dangerouslySetInnerHTML={{ __html: item.contentHtml }}
+            />
+            {item.applicationUrl ? (
+              <Link href={item.applicationUrl} className="mt-8 inline-flex items-center justify-center rounded-full bg-trust-900 px-6 py-3 text-sm font-black text-white">
                 応募フォームへ
               </Link>
             ) : (
