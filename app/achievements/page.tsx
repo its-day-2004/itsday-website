@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "活動実績",
-  description: "ITS DAYのこれまでの活動、3Days Schoolの開催実績、靴の収集と寄付の取り組みを紹介します。"
-};
+  description: "ITS DAYのこれまでの活動、3Days Schoolの開催実績、靴の収集と寄付の取り組みを紹介します。",
+  path: "/achievements",
+  image: "/images/group-blue.jpeg"
+});
 
 const stats = [
   ["200名以上", "子ども参加者"],

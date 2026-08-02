@@ -3,11 +3,14 @@ import { Mail } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "お問い合わせ",
-  description: "ITS DAYへの参加相談、保護者の方からのご相談、取材や連携に関するお問い合わせページです。"
-};
+  description: "ITS DAYへの参加相談、保護者の方からのご相談、取材や連携に関するお問い合わせページです。",
+  path: "/contact",
+  image: "/images/group-blue.jpeg"
+});
 
 export default function ContactPage() {
   return (

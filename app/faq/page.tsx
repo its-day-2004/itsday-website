@@ -3,11 +3,13 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
 import { faqs } from "@/lib/site-data";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "よくある質問",
-  description: "ITS DAYへの参加、英語力、安全面、一人参加などについてのよくある質問をまとめています。"
-};
+  description: "ITS DAYへの参加、英語力、安全面、一人参加などについてのよくある質問をまとめています。",
+  path: "/faq"
+});
 
 export default function FaqPage() {
   return (

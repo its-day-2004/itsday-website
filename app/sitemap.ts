@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllRecruitments, getAllReports } from "@/lib/microcms";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+import { siteConfig } from "@/lib/seo";
 
 const staticRoutes = [
   "",
@@ -21,19 +20,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticRoutes.map((route) => ({
-      url: `${siteUrl}${route}`,
+      url: `${siteConfig.url}${route}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: route === "" ? 1 : 0.7
     })),
     ...reports.map((report) => ({
-      url: `${siteUrl}/reports/${report.slug}`,
+      url: `${siteConfig.url}/reports/${report.slug}`,
       lastModified: new Date(report.date.replaceAll(".", "-")),
       changeFrequency: "monthly" as const,
       priority: 0.6
     })),
     ...recruitments.map((item) => ({
-      url: `${siteUrl}/recruitments/${item.slug}`,
+      url: `${siteConfig.url}/recruitments/${item.slug}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.6

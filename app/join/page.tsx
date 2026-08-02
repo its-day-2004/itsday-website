@@ -4,11 +4,14 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "参加を考えている方へ",
-  description: "ITS DAYの活動に参加する意味、参加までの流れ、現地活動前後の準備、よくある不安について紹介します。"
-};
+  description: "ITS DAYの活動に参加する意味、参加までの流れ、現地活動前後の準備、よくある不安について紹介します。",
+  path: "/join",
+  image: "/images/slum-tour.jpeg"
+});
 
 const stableItems = [
   ["参加する意味", "子どもたちに新しい体験を届けるだけでなく、自分の価値観や当たり前を見つめ直す機会になります。"],

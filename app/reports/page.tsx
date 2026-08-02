@@ -6,11 +6,14 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
 import { getAllReports } from "@/lib/microcms";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "活動レポート",
-  description: "ITS DAYの活動記録、現地での出会い、子どもたちと大学生の学びを伝える活動レポート一覧です。"
-};
+  description: "ITS DAYの活動記録、現地での出会い、子どもたちと大学生の学びを伝える活動レポート一覧です。",
+  path: "/reports",
+  image: "/images/classroom-writing.jpeg"
+});
 
 export default async function ReportsPage() {
   const reports = await getAllReports();

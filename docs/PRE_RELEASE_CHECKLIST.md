@@ -16,7 +16,7 @@
 - `lib/site-data.ts` の `activityReports`
 - `lib/site-data.ts` の `recruitments`
 
-本番ではmicroCMS未接続時に表示されません。開発環境または `SHOW_MOCK_CONTENT=true` の場合のみ確認用に表示されます。
+microCMSの取得に成功してデータが0件の場合のみ表示されます。取得エラー時は準備中表示になります。
 
 ## 未確定情報
 

@@ -3,11 +3,14 @@ import Image from "next/image";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageFrame, PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "ITS DAYについて",
-  description: "ITS DAYの活動方針、目指す社会、子どもたちと大学生がともに一歩を踏み出す場づくりについて紹介します。"
-};
+  description: "ITS DAYの活動方針、目指す社会、子どもたちと大学生がともに一歩を踏み出す場づくりについて紹介します。",
+  path: "/about",
+  image: "/images/group-blue.jpeg"
+});
 
 const values = [
   "新しい体験を届けること",

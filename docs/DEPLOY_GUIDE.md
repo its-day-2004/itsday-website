@@ -23,7 +23,6 @@ Production環境に設定します。
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
 MICROCMS_SERVICE_DOMAIN=your-service-domain
 MICROCMS_API_KEY=your-api-key
-SHOW_MOCK_CONTENT=false
 ```
 
 ## 4. デプロイ後確認
@@ -43,4 +42,4 @@ SHOW_MOCK_CONTENT=false
 
 ## 5. 注意
 
-microCMS未接続の場合、本番では活動レポートと募集情報は準備中表示になります。
+microCMSの取得に失敗した場合、活動レポートと募集情報は準備中表示になります。API取得に成功してデータが0件の場合のみ、確認用モックデータが表示されます。

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,6 +13,17 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { faqs, mainProgram, schoolContents, slumTourProgram } from "@/lib/site-data";
 import { getLatestReports } from "@/lib/microcms";
+import { siteConfig } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: siteConfig.title
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: "/"
+  }
+};
 
 const stats = [
   { value: "200+", label: "子ども参加者" },

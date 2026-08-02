@@ -31,9 +31,8 @@ pnpm start
 - `NEXT_PUBLIC_SITE_URL`: 公開URL
 - `MICROCMS_SERVICE_DOMAIN`: microCMSのサービスドメイン
 - `MICROCMS_API_KEY`: microCMSのAPIキー
-- `SHOW_MOCK_CONTENT`: 開発確認用モックを表示する場合のみ `true`
 
-本番公開では `SHOW_MOCK_CONTENT=false` を推奨します。
+microCMSの取得に失敗した場合は準備中表示になります。API取得に成功してデータが0件の場合のみ、確認用のモックデータを表示します。
 
 ## 公開前の重要確認
 

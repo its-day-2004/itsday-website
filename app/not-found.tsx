@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+
+export const metadata: Metadata = {
+  title: "ページが見つかりません",
+  robots: {
+    index: false,
+    follow: false
+  }
+};
 
 export default function NotFound() {
   return (

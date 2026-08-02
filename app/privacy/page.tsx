@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "プライバシーポリシー",
-  description: "ITS DAY公式サイトにおける個人情報の取得、利用目的、管理、第三者提供について掲載しています。"
-};
+  description: "ITS DAY公式サイトにおける個人情報の取得、利用目的、管理、第三者提供について掲載しています。",
+  path: "/privacy"
+});
 
 const sections = [
   ["個人情報の取得", "お問い合わせや応募フォームを通じて取得する情報は、必要な範囲で利用します。"],

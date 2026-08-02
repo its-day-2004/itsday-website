@@ -4,11 +4,14 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
 import { mainProgram, otherActivities, schoolContents, slumTourProgram, supportPrograms } from "@/lib/site-data";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "活動内容",
-  description: "ITS DAYの主要プログラムである3Days Schoolとスラムツアー、活動前後の取り組み、その他の活動を紹介します。"
-};
+  description: "ITS DAYの主要プログラムである3Days Schoolとスラムツアー、活動前後の取り組み、その他の活動を紹介します。",
+  path: "/activities",
+  image: "/images/classroom-writing.jpeg"
+});
 
 export default function ActivitiesPage() {
   return (
