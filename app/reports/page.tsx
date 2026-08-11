@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "活動レポート",
   description: "ITS DAYの活動記録、現地での出会い、子どもたちと大学生の学びを伝える活動レポート一覧です。",
   path: "/reports",
-  image: "/images/classroom-writing.jpeg"
+  image: "/images/hero-reports.jpeg"
 });
 
 export const dynamic = "force-dynamic";
@@ -28,8 +28,8 @@ export default async function ReportsPage() {
         <PageHero
           eyebrow="REPORTS"
           title="活動レポート"
-          image="/images/classroom-writing.jpeg"
-          imageAlt="3Days Schoolの授業で子どもが紙に書き込む様子"
+          image="/images/hero-reports.jpeg"
+          imageAlt="ITS DAYの活動レポートを伝える見出し写真"
           objectPosition="center 48%"
         />
         <section className="bg-white py-16 sm:py-24">

@@ -49,7 +49,8 @@ push後、GitHubのcommit statusまたはVercel DashboardでProduction Deploymen
 ## microCMS未接続・エラー時
 
 - CMS取得成功かつデータあり: CMSデータのみ表示
-- CMS取得成功かつ0件: 確認用モックを表示
+- reportsのCMS取得成功かつ0件: 確認用モックを表示
+- recruitmentsのCMS取得成功かつ0件: モック募集情報を出さず準備中表示
 - CMS取得エラー: 準備中表示
 
 APIキーはサーバー側だけで使用します。`NEXT_PUBLIC_` を付けて公開しないでください。

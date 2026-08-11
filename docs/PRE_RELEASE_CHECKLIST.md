@@ -17,9 +17,10 @@
 ## 仮データ
 
 - `lib/site-data.ts` の `activityReports`
-- `lib/site-data.ts` の `recruitments`
 
-microCMSの取得に成功してデータが0件の場合のみ表示されます。取得エラー時はモックではなく準備中表示になります。
+活動レポートのみ、microCMSの取得に成功してデータが0件の場合に確認用モックが表示されます。取得エラー時はモックではなく準備中表示になります。
+
+募集情報はmicroCMSに投稿されたものだけを表示します。CMSが0件または取得エラーの場合、モック募集情報は表示しません。
 
 ## 未確定情報
 
@@ -51,6 +52,12 @@ microCMSの取得に成功してデータが0件の場合のみ表示されま�
 - `reflection.jpeg`
 - `student-lecture.jpeg`
 - `noto-volunteer.jpeg`
+- `hero-contact.jpeg`
+- `hero-recruitments.jpeg`
+- `hero-join.jpeg`
+- `hero-reports.jpeg`
+- `hero-achievements.jpg`
+- `about-background.jpeg`
 - `logo.jpeg`
 
 ## 法的確認が必要なもの

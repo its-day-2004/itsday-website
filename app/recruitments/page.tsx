@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "募集情報",
   description: "ITS DAYの最新募集情報、募集状況、応募期限、応募フォームを掲載するページです。",
   path: "/recruitments",
-  image: "/images/group-blue.jpeg"
+  image: "/images/hero-recruitments.jpeg"
 });
 
 const statusLabels = {
@@ -33,8 +33,8 @@ export default async function RecruitmentsPage() {
         <PageHero
           eyebrow="RECRUITMENT"
           title="募集情報"
-          image="/images/group-blue.jpeg"
-          imageAlt="ITS DAYの活動に参加した子どもたちと学生たち"
+          image="/images/hero-recruitments.jpeg"
+          imageAlt="ITS DAYの募集情報を伝える見出し写真"
           objectPosition="center 44%"
         />
         <section className="bg-white py-16 sm:py-24">

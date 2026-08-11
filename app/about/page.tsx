@@ -48,8 +48,8 @@ export default function AboutPage() {
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-[22px] photo-shadow">
               <Image
-                src="/images/slum-tour.jpeg"
-                alt="フィリピン・マニラの地域を訪問するITS DAYメンバー"
+                src="/images/about-background.jpeg"
+                alt="ITS DAYの設立の背景に関わる活動の様子"
                 fill
                 className="object-cover"
                 sizes="(min-width: 768px) 28vw, 100vw"

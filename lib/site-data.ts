@@ -77,33 +77,6 @@ export const activityReports: ActivityReport[] = [
   }
 ];
 
-export const recruitments: Recruitment[] = [
-  {
-    id: "mock-2026-summer-1",
-    slug: "2026-summer-1",
-    title: "2026年夏 3Days School 第1回",
-    image: "/placeholder-image.jpg",
-    excerpt: "資料記載情報をもとにした過去の募集例です。最新の募集情報ではありません。",
-    contentHtml:
-      "<p>2026年夏の過去の募集例です。公開中の募集としては使用しないでください。</p>",
-    applicationUrl: "",
-    isOpen: false,
-    publishedAt: "2026-01-01T00:00:00.000Z"
-  },
-  {
-    id: "mock-2026-summer-2",
-    slug: "2026-summer-2",
-    title: "2026年夏 3Days School 第2回",
-    image: "/placeholder-image.jpg",
-    excerpt: "資料記載情報をもとにした過去の募集例です。最新の募集情報ではありません。",
-    contentHtml:
-      "<p>2026年夏の過去の募集例です。公開中の募集としては使用しないでください。</p>",
-    applicationUrl: "",
-    isOpen: false,
-    publishedAt: "2026-01-01T00:00:00.000Z"
-  }
-];
-
 export const faqs = [
   {
     question: "一人で参加する学生はいますか",

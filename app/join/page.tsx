@@ -10,7 +10,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "参加を考えている方へ",
   description: "ITS DAYの活動に参加する意味、参加までの流れ、現地活動前後の準備、よくある不安について紹介します。",
   path: "/join",
-  image: "/images/slum-tour.jpeg"
+  image: "/images/hero-join.jpeg"
 });
 
 const stableItems = [
@@ -32,8 +32,8 @@ export default function JoinPage() {
         <PageHero
           eyebrow="JOIN"
           title="参加を考えている方へ"
-          image="/images/slum-tour.jpeg"
-          imageAlt="現地の暮らしを知るために地域を訪問する参加学生"
+          image="/images/hero-join.jpeg"
+          imageAlt="ITS DAYへの参加を考えている方へ向けた活動写真"
           objectPosition="center 42%"
         />
         <section className="bg-white py-16 sm:py-24">

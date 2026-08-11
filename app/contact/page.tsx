@@ -10,7 +10,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "お問い合わせ",
   description: "ITS DAYへの参加相談、保護者の方からのご相談、取材や連携に関するお問い合わせページです。",
   path: "/contact",
-  image: "/images/group-blue.jpeg"
+  image: "/images/hero-contact.jpeg"
 });
 
 const instagramUrl = "https://www.instagram.com/its_day_inslum?utm_source=qr";
@@ -35,8 +35,8 @@ export default function ContactPage() {
         <PageHero
           eyebrow="CONTACT"
           title="お問い合わせ"
-          image="/images/group-blue.jpeg"
-          imageAlt="ITS DAYの活動に参加した子どもたちと学生たち"
+          image="/images/hero-contact.jpeg"
+          imageAlt="ITS DAYへのお問い合わせページの見出し写真"
           objectPosition="center 44%"
         />
         <section className="bg-white py-16 sm:py-24">

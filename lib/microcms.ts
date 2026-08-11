@@ -1,4 +1,4 @@
-import { activityReports, recruitments } from "./site-data";
+import { activityReports } from "./site-data";
 import type { ActivityReport, Recruitment } from "./site-data";
 
 const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
@@ -209,7 +209,7 @@ export async function getCurrentRecruitments() {
   }
 
   if (result.contents.length === 0) {
-    return recruitments.slice(0, 2);
+    return [];
   }
 
   return result.contents.map(normalizeRecruitmentFromCMS).filter((item) => item.slug && item.title);
@@ -223,7 +223,7 @@ export async function getAllRecruitments() {
   }
 
   if (result.contents.length === 0) {
-    return recruitments;
+    return [];
   }
 
   return result.contents.map(normalizeRecruitmentFromCMS).filter((item) => item.slug && item.title);

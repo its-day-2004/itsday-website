@@ -8,7 +8,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "活動実績",
   description: "ITS DAYのこれまでの活動、3Days Schoolの開催実績、靴の収集と寄付の取り組みを紹介します。",
   path: "/achievements",
-  image: "/images/group-blue.jpeg"
+  image: "/images/hero-achievements.jpg"
 });
 
 const stats = [
@@ -53,8 +53,8 @@ export default function AchievementsPage() {
         <PageHero
           eyebrow="ACHIEVEMENTS"
           title="活動実績"
-          image="/images/sports.jpeg"
-          imageAlt="子どもたちが靴を履いてサッカーをする様子"
+          image="/images/hero-achievements.jpg"
+          imageAlt="ITS DAYの活動実績を伝える活動写真"
           objectPosition="center 48%"
         />
         <section className="bg-trust-900 py-16 text-white sm:py-24">
