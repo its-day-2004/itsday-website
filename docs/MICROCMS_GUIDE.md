@@ -1,58 +1,59 @@
 # microCMS設定ガイド
 
-## 使用するAPI
-
-- `reports`
-- `recruitments`
-
 ## 環境変数
 
-```text
+```bash
 MICROCMS_SERVICE_DOMAIN=
 MICROCMS_API_KEY=
 ```
 
-APIキーはサーバー側だけで使用します。`NEXT_PUBLIC_` を付けないでください。
+`MICROCMS_API_KEY` はサーバー側でのみ使用します。`NEXT_PUBLIC_` を付けないでください。
 
-## reportsの想定フィールド
+## reports
 
-- `id`
-- `slug`
-- `title`
-- `date`
-- `category`
-- `excerpt`
-- `image`
-- `body`
+活動レポートで使用します。
 
-## recruitmentsの想定フィールド
+| フィールド | 用途 |
+| --- | --- |
+| `title` | タイトル |
+| `slug` | URL |
+| `category` | カテゴリ |
+| `thumbnail` | 一覧・詳細のアイキャッチ |
+| `excerpt` | 一覧の概要 |
+| `content` | 詳細本文 |
+| `gallery` | 詳細ギャラリー |
+| `publishedAt` | 公開日 |
 
-- `id`
-- `slug`
-- `title`
-- `status`
-- `period`
-- `deadline`
-- `fee`
-- `travelCost`
-- `accommodationCost`
-- `discount`
-- `capacity`
-- `formUrl`
-- `note`
+詳細ページは `id` ではなく `slug` で取得します。
 
-## 取得時の挙動
+## recruitments
 
-APIキー未設定や通信エラーなど、取得に失敗した場合は安全な空状態になります。
+募集情報で使用します。
 
-- 活動レポート: 準備中表示
-- 募集情報: 「現在、新しい募集情報を準備しています」
+| フィールド | 用途 |
+| --- | --- |
+| `title` | タイトル |
+| `slug` | URL |
+| `thumbnail` | アイキャッチ |
+| `excerpt` | 概要 |
+| `content` | 詳細本文 |
+| `applicationUrl` | 応募リンク |
+| `isOpen` | 募集状態 |
+| `publishedAt` | 公開日 |
 
-API取得に成功してデータが0件の場合のみ、現在の確認用モックデータを表示します。
+## 表示ルール
 
-## 公開前確認
+- CMS取得成功かつ1件以上: CMSデータのみ表示します。
+- CMS取得成功かつ0件: 確認用モックデータを表示します。
+- CMS取得エラー: モックを出さず、準備中表示にします。
+- thumbnailが未設定の場合だけ、共通プレースホルダー画像を表示します。
+- CMS本文はHTMLとして表示しますが、危険なタグや属性はサーバー側で除去します。
 
-- APIキーに必要最小限の権限を設定
-- 画像URLが表示できること
-- `slug` が重複していないこと
-- 公開前の記事や募集が意図せず表示されないこと
+## 公開後の確認
+
+- `/reports`
+- `/reports/{slug}`
+- `/recruitments`
+- `/recruitments/{slug}`
+- sitemap.xmlに公開記事が含まれること
+- OGP画像がthumbnailまたは共通OG画像になること

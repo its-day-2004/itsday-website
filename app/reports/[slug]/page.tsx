@@ -65,7 +65,7 @@ export default async function ReportDetailPage({ params }: { params: Promise<{ s
       <>
         <Header />
         <PageFrame>
-          <PageHero eyebrow="REPORTS" title="活動レポート" text="現在準備中です。" />
+          <PageHero eyebrow="REPORTS" title="活動レポート" />
           <section className="bg-white py-16 sm:py-24">
             <div className="section-shell max-w-4xl rounded-[24px] bg-paper p-7">
               <p className="inline-flex rounded-full bg-mint-50 px-3 py-1 text-xs font-black text-mint-700">準備中</p>
@@ -97,7 +97,7 @@ export default async function ReportDetailPage({ params }: { params: Promise<{ s
               <Image src={report.image} alt={report.title} fill className="object-cover" sizes="100vw" />
             </div>
             <div
-              className="mt-10 space-y-6 text-base leading-8 text-trust-900/74 [&_a]:font-bold [&_a]:text-mint-700 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-trust-900 [&_h3]:text-xl [&_h3]:font-black [&_h3]:text-trust-900 [&_img]:rounded-[20px] [&_li]:ml-5 [&_li]:list-disc"
+              className="mt-10 space-y-6 text-base leading-8 text-trust-900/74 [&_a]:font-bold [&_a]:text-mint-700 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-trust-900 [&_h3]:text-xl [&_h3]:font-black [&_h3]:text-trust-900 [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-[20px] [&_li]:ml-5 [&_li]:list-disc"
               dangerouslySetInnerHTML={{ __html: report.contentHtml }}
             />
             {report.gallery.length > 0 && (

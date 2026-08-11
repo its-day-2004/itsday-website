@@ -1,45 +1,55 @@
-# Vercel公開手順
+# デプロイガイド
 
-## 1. GitHubへ保存
+## 事前確認
 
-1. GitHubでリポジトリを作成
-2. このプロジェクトをpush
-3. `.env` やAPIキーが含まれていないことを確認
+```bash
+pnpm lint
+pnpm build
+```
 
-## 2. Vercelでプロジェクト作成
+秘密情報が含まれていないか確認します。
 
-1. Vercelで `Add New Project`
-2. GitHubリポジトリを選択
-3. Framework Presetは `Next.js`
-4. Install Commandは `pnpm install`
-5. Build Commandは `pnpm build`
-6. Output Directoryは未設定
+```bash
+git status --short
+git grep -n "MICROCMS_API_KEY\\|SECRET\\|TOKEN\\|PASSWORD" -- ':!docs/*'
+```
 
-## 3. Vercel環境変数
+## Vercel設定
 
-Production環境に設定します。
+- Framework: Next.js
+- Install Command: `pnpm install --frozen-lockfile`
+- Build Command: `pnpm build`
+- Output Directory: Next.js既定
+- Node.js: VercelのLTS設定で問題ありません。
 
-```text
-NEXT_PUBLIC_SITE_URL=https://your-domain.example
+## Environment Variables
+
+VercelのProduction / Previewに以下を設定します。
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://itsday-website.vercel.app
 MICROCMS_SERVICE_DOMAIN=your-service-domain
 MICROCMS_API_KEY=your-api-key
 ```
 
-## 4. デプロイ後確認
+独自ドメイン取得後は `NEXT_PUBLIC_SITE_URL` を新しいURLへ変更し、再デプロイします。
 
-- `/`
-- `/about`
-- `/activities`
-- `/achievements`
-- `/join`
-- `/recruitments`
-- `/faq`
-- `/reports`
-- `/contact`
-- `/privacy`
-- `/sitemap.xml`
-- `/robots.txt`
+## GitHub連携
 
-## 5. 注意
+`main` ブランチへpushするとProduction Deploymentが走る構成です。
 
-microCMSの取得に失敗した場合、活動レポートと募集情報は準備中表示になります。API取得に成功してデータが0件の場合のみ、確認用モックデータが表示されます。
+```bash
+git add .
+git commit -m "Prepare final release candidate"
+git push origin main
+```
+
+push後、GitHubのcommit statusまたはVercel DashboardでProduction Deploymentの成功を確認します。
+
+## microCMS未接続・エラー時
+
+- CMS取得成功かつデータあり: CMSデータのみ表示
+- CMS取得成功かつ0件: 確認用モックを表示
+- CMS取得エラー: 準備中表示
+
+APIキーはサーバー側だけで使用します。`NEXT_PUBLIC_` を付けて公開しないでください。

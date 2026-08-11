@@ -19,7 +19,9 @@ export default function FaqPage() {
         <PageHero
           eyebrow="FAQ"
           title="よくある質問"
-          text="参加を考えている学生や保護者の方が、活動前に確認したいことを整理します。"
+          image="/images/pre-meeting.jpeg"
+          imageAlt="参加前に資料を見ながら説明を受ける学生たち"
+          objectPosition="center 45%"
         />
         <section className="bg-white py-16 sm:py-24">
           <div className="section-shell max-w-4xl space-y-4">

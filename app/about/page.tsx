@@ -27,12 +27,13 @@ export default function AboutPage() {
         <PageHero
           eyebrow="ABOUT"
           title="ITS DAYについて"
-          text="ITS DAYは、フィリピン・マニラのスラム地域で暮らす子どもたちに、新しい体験や学びの機会を届ける学生団体です。"
           image="/images/group-blue.jpeg"
+          imageAlt="ITS DAYの活動に参加した子どもたちと学生たち"
+          objectPosition="center 42%"
         />
 
         <section className="bg-white py-16 sm:py-24">
-          <div className="section-shell grid gap-10 md:grid-cols-[0.8fr_1.2fr]">
+          <div className="section-shell grid gap-10 md:grid-cols-[0.75fr_0.85fr_0.75fr] md:items-center">
             <div>
               <p className="eyebrow">WHY WE STARTED</p>
               <h2 className="mt-4 text-3xl font-black text-trust-900 sm:text-5xl">設立の背景</h2>
@@ -44,6 +45,15 @@ export default function AboutPage() {
               <p>
                 だからこそITS DAYでは、学校教育だけでは得られない新しい体験を届けることを大切にしています。
               </p>
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[22px] photo-shadow">
+              <Image
+                src="/images/slum-tour.jpeg"
+                alt="フィリピン・マニラの地域を訪問するITS DAYメンバー"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 28vw, 100vw"
+              />
             </div>
           </div>
         </section>

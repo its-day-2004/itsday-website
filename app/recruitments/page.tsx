@@ -33,8 +33,9 @@ export default async function RecruitmentsPage() {
         <PageHero
           eyebrow="RECRUITMENT"
           title="募集情報"
-          text="最新の募集情報は、確定後にこのページで公開します。"
           image="/images/group-blue.jpeg"
+          imageAlt="ITS DAYの活動に参加した子どもたちと学生たち"
+          objectPosition="center 44%"
         />
         <section className="bg-white py-16 sm:py-24">
           <div className="section-shell">

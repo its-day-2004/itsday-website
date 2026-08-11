@@ -17,7 +17,7 @@ export function Header() {
           <span className="text-base font-black text-trust-900">ITS DAY</span>
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm font-semibold text-trust-900 lg:flex">
+        <nav className="hidden items-center gap-4 text-[13px] font-semibold text-trust-900 lg:flex xl:gap-5 xl:text-sm">
           {navItems.filter((item) => item.href !== "/" && item.href !== "/contact").map((item) => (
             <Link key={item.href} href={item.href} className="transition hover:text-mint-700">
               {item.label}
@@ -27,7 +27,7 @@ export function Header() {
 
         <Link
           href="/contact"
-          className="hidden rounded-full bg-trust-900 px-5 py-2.5 text-sm font-bold text-white shadow-soft transition hover:bg-trust-800 lg:inline-flex"
+          className="hidden rounded-full bg-trust-900 px-4 py-2.5 text-sm font-bold text-white shadow-soft transition hover:bg-trust-800 lg:inline-flex xl:px-5"
         >
           お問い合わせ
         </Link>

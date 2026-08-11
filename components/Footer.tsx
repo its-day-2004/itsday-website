@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Instagram, Mail } from "lucide-react";
 import { navItems } from "@/lib/site-data";
+
+const instagramUrl = "https://www.instagram.com/its_day_inslum?utm_source=qr";
+const mailHref =
+  "mailto:wakana.oka.8@gmail.com?subject=ITS%20DAY%E3%81%B8%E3%81%AE%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B";
 
 export function Footer() {
   return (
@@ -19,14 +23,23 @@ export function Footer() {
             フィリピン・マニラの子どもたちと大学生が、新しい体験や出会いを通して一歩を踏み出すきっかけをつくる学生団体です。
           </p>
           <div className="mt-6 flex gap-3">
-            <Link href="/contact" aria-label="お問い合わせ" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+            <Link
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/18"
+            >
+              <Instagram size={18} />
+            </Link>
+            <Link href={mailHref} aria-label="メールで問い合わせる" className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/18">
               <Mail size={18} />
             </Link>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-sm font-semibold sm:grid-cols-3">
-          {navItems.slice(1).map((item) => (
+          {navItems.filter((item) => item.href !== "/").map((item) => (
             <Link key={item.href} href={item.href} className="text-white/78 transition hover:text-white">
               {item.label}
             </Link>

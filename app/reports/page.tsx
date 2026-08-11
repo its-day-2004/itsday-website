@@ -28,8 +28,9 @@ export default async function ReportsPage() {
         <PageHero
           eyebrow="REPORTS"
           title="活動レポート"
-          text="活動の記録を積み重ね、Instagramだけでは伝えきれない背景や学びを残していくページです。"
           image="/images/classroom-writing.jpeg"
+          imageAlt="3Days Schoolの授業で子どもが紙に書き込む様子"
+          objectPosition="center 48%"
         />
         <section className="bg-white py-16 sm:py-24">
           <div className="section-shell">

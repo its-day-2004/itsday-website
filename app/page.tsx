@@ -54,6 +54,7 @@ const changeItems = [
 
 export default async function Home() {
   const reports = await getLatestReports();
+  const homeFaqs = faqs.slice(0, 4);
 
   return (
     <>
@@ -309,7 +310,7 @@ export default async function Home() {
               <h2 className="mt-4 text-3xl font-black text-trust-900 sm:text-5xl">よくある質問</h2>
             </div>
             <div className="grid gap-4">
-              {faqs.map((faq) => (
+              {homeFaqs.map((faq) => (
                 <section key={faq.question} className="rounded-[20px] border border-mint-100 p-5">
                   <h3 className="font-black text-trust-900">{faq.question}</h3>
                   <p className="mt-3 text-sm leading-7 text-trust-900/68">{faq.answer}</p>

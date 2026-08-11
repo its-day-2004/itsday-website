@@ -7,7 +7,9 @@ ITS DAY公式WebサイトのNext.jsプロジェクトです。
 - Next.js App Router
 - TypeScript
 - Tailwind CSS
-- microCMS連携準備済み
+- Motion
+- microCMS
+- Vercel
 
 ## 開発
 
@@ -28,19 +30,19 @@ pnpm start
 
 `.env.example` を参考に、ローカルまたはVercelで設定します。
 
-- `NEXT_PUBLIC_SITE_URL`: 公開URL
+- `NEXT_PUBLIC_SITE_URL`: 公開URL。未設定時は `https://itsday-website.vercel.app` を使用します。
 - `MICROCMS_SERVICE_DOMAIN`: microCMSのサービスドメイン
 - `MICROCMS_API_KEY`: microCMSのAPIキー
 
-microCMSの取得に失敗した場合は準備中表示になります。API取得に成功してデータが0件の場合のみ、確認用のモックデータを表示します。
+microCMSの取得に成功してデータが1件以上ある場合はCMSデータのみを表示します。取得成功かつ0件の場合のみ確認用モックデータを表示し、取得エラー時は準備中表示にします。
 
 ## 公開前の重要確認
 
-- 写真掲載許可
+- 写真掲載許可、肖像権
 - 活動実績の数字
 - プライバシーポリシーの法的確認
-- 問い合わせ窓口
+- Instagramと問い合わせメールの運用体制
 - microCMSのAPIスキーマと公開状態
-- 独自ドメイン
+- 独自ドメイン設定
 
 詳細は `docs/` 配下の各ドキュメントを参照してください。

@@ -32,8 +32,9 @@ export default function JoinPage() {
         <PageHero
           eyebrow="JOIN"
           title="参加を考えている方へ"
-          text="このページでは年度が変わっても使える参加前の考え方を掲載します。日程や費用などの可変情報は募集情報から確認してください。"
           image="/images/slum-tour.jpeg"
+          imageAlt="現地の暮らしを知るために地域を訪問する参加学生"
+          objectPosition="center 42%"
         />
         <section className="bg-white py-16 sm:py-24">
           <div className="section-shell grid gap-5 md:grid-cols-2">

@@ -7,29 +7,33 @@
 - 活動内容
 - 活動実績
 - 参加を考えている方へ
+- 募集情報
 - よくある質問
-- お問い合わせの準備中表示
-- プライバシーポリシーの基本文面
+- 活動レポート
+- お問い合わせ
+- プライバシーポリシー
+- 404ページ
 
 ## 仮データ
 
 - `lib/site-data.ts` の `activityReports`
 - `lib/site-data.ts` の `recruitments`
 
-microCMSの取得に成功してデータが0件の場合のみ表示されます。取得エラー時は準備中表示になります。
+microCMSの取得に成功してデータが0件の場合のみ表示されます。取得エラー時はモックではなく準備中表示になります。
 
 ## 未確定情報
 
-- 最新の募集情報
-- 応募フォームURL
-- 問い合わせ窓口
-- 活動実績の最終確認値
+- 最新の募集日程、参加費、募集人数
+- 募集ごとの応募フォームURL
 - 独自ドメイン
+- 写真掲載許可
+- 活動実績の最終確認値
 
-## リンク未設定
+## リンク
 
-- 問い合わせフォームは現在「準備中」表示です。
-- SNSリンクは未設定のためフッターから削除済みです。
+- Instagram: `https://www.instagram.com/its_day_inslum?utm_source=qr`
+- 一般問い合わせメール: `wakana.oka.8@gmail.com`
+- 募集情報の応募リンクはmicroCMSの `applicationUrl` から表示します。
 
 ## 写真掲載確認が必要なもの
 
@@ -52,20 +56,36 @@ microCMSの取得に成功してデータが0件の場合のみ表示されま�
 ## 法的確認が必要なもの
 
 - プライバシーポリシー
-- 問い合わせフォームで取得する個人情報の取り扱い
 - 応募フォームで取得する個人情報の取り扱い
+- 問い合わせメール運用時の個人情報の取り扱い
 - 写真の肖像権、掲載同意
 
 ## microCMS接続後に確認するもの
 
-- 活動レポート一覧
-- 活動レポート詳細
-- 募集情報一覧
-- 募集情報詳細
-- 記事画像
-- 募集状況
-- 応募期限
-- 応募フォームURL
+- `reports` 一覧、詳細、thumbnail、gallery、content
+- `recruitments` 一覧、詳細、thumbnail、content、applicationUrl、isOpen
+- slugで詳細ページが開けること
+- CMS取得エラー時にサイト全体が落ちないこと
+
+## SEO / OGP
+
+- title / description / canonical
+- OGP / Twitter Card
+- favicon / apple touch icon
+- manifest
+- robots.txt
+- sitemap.xml
+- JSON-LD Organization
+- `NEXT_PUBLIC_SITE_URL` の値
+
+## 表へ出してはいけないもの
+
+- TODO表示
+- 仮の応募フォームURL
+- 未確認の日程や料金
+- 開発者向け注意書き
+- 写真掲載許可に関する内部メモ
+- microCMSなどの開発用語を一般ページの本文として見せる表現
 
 ## 公開直前コマンド
 
@@ -73,12 +93,3 @@ microCMSの取得に成功してデータが0件の場合のみ表示されま�
 pnpm lint
 pnpm build
 ```
-
-## 公開前に表へ出してはいけないもの
-
-- TODO表示
-- 仮の応募フォームURL
-- 仮の問い合わせ先
-- 未確認の日程や料金
-- 開発者向け注意書き
-- 写真掲載許可に関する内部メモ

@@ -12,7 +12,7 @@ const organizationJsonLd = {
   description: siteConfig.description,
   slogan: "新しい体験が、未来の選択肢を広げる。",
   areaServed: ["Japan", "Philippines"],
-  sameAs: []
+  sameAs: [siteConfig.instagramUrl]
 };
 
 export const metadata: Metadata = {

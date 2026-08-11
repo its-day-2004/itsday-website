@@ -21,8 +21,9 @@ export default function ActivitiesPage() {
         <PageHero
           eyebrow="ACTIVITIES"
           title="活動内容"
-          text="3Days Schoolとスラムツアーを主要プログラムとして、子どもたちへ届ける体験と参加大学生の学びを整理しています。"
           image="/images/hero-classroom.jpeg"
+          imageAlt="3Days Schoolで子どもと大学生が授業に取り組む様子"
+          objectPosition="center 44%"
         />
 
         <section className="bg-white py-16 sm:py-24">

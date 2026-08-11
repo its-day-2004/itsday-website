@@ -1,37 +1,41 @@
 # 独自ドメイン設定ガイド
 
-## 1. ドメインを決める
+現在の公開URLは `https://itsday-website.vercel.app` です。独自ドメイン名はまだ固定しません。
 
-例:
+## 切り替え手順
 
-```text
-https://itsday.example
-```
+1. VercelのProject Settingsで独自ドメインを追加します。
+2. Vercelに表示されるDNSレコードを、ドメイン管理サービス側へ設定します。
+3. Vercelのドメイン画面で検証が完了するまで待ちます。
+4. VercelのEnvironment Variablesで `NEXT_PUBLIC_SITE_URL` を新ドメインへ変更します。
+5. Productionを再デプロイします。
+6. `sitemap.xml`、canonical、OGP、JSON-LDのURLが新ドメインへ切り替わっているか確認します。
 
-## 2. 環境変数を更新
+## 変更する環境変数
 
-VercelのProduction環境で設定します。
-
-```text
+```bash
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
 ```
 
-この値はcanonical URL、OG URL、sitemap、robotsで使われます。
+末尾の `/` は付けないでください。
 
-## 3. Vercelでドメイン追加
+## 反映されるもの
 
-1. VercelのProject Settingsを開く
-2. Domainsへ移動
-3. 独自ドメインを追加
-4. 表示されたDNS設定をドメイン管理サービスに登録
+- metadataBase
+- canonical URL
+- OGP URL
+- sitemap.xml
+- robots.txt内のsitemap URL
+- JSON-LD OrganizationのURLとlogo URL
 
-## 4. 反映後に確認
+## 確認するURL
 
-- `https://your-domain.example`
-- `https://your-domain.example/sitemap.xml`
-- `https://your-domain.example/robots.txt`
-- SNS共有時のタイトル、説明、画像
+- `/`
+- `/about`
+- `/activities`
+- `/recruitments`
+- `/reports`
+- `/sitemap.xml`
+- `/robots.txt`
 
-## 5. 注意
-
-ドメイン確定前に公開する場合は、Vercelの初期URLを `NEXT_PUBLIC_SITE_URL` に設定してください。
+microCMS記事の詳細ページも、公開済みslugで確認してください。

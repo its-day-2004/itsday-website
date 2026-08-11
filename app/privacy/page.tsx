@@ -15,7 +15,7 @@ const sections = [
   ["利用目的", "お問い合わせへの回答、募集活動に関する連絡、活動運営に必要な確認のために利用します。"],
   ["第三者提供", "法令に基づく場合を除き、本人の同意なく第三者へ提供しません。"],
   ["管理", "取得した情報は、漏えい、紛失、改ざん等が起きないよう適切に管理します。"],
-  ["問い合わせ先", "お問い合わせ窓口が整い次第、サイト上でご案内します。"]
+  ["問い合わせ先", "個人情報の取り扱いに関するお問い合わせは、wakana.oka.8@gmail.com までご連絡ください。"]
 ];
 
 export default function PrivacyPage() {
@@ -26,7 +26,6 @@ export default function PrivacyPage() {
         <PageHero
           eyebrow="PRIVACY"
           title="プライバシーポリシー"
-          text="応募やお問い合わせに関わる情報の取り扱いについて掲載しています。"
         />
         <section className="bg-white py-16 sm:py-24">
           <div className="section-shell max-w-4xl space-y-6">

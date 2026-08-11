@@ -53,8 +53,9 @@ export default function AchievementsPage() {
         <PageHero
           eyebrow="ACHIEVEMENTS"
           title="活動実績"
-          text="数字だけでは測れない出会いを大切にしながら、これまでの活動を公式情報として整理します。"
-          image="/images/group-blue.jpeg"
+          image="/images/sports.jpeg"
+          imageAlt="子どもたちが靴を履いてサッカーをする様子"
+          objectPosition="center 48%"
         />
         <section className="bg-trust-900 py-16 text-white sm:py-24">
           <div className="section-shell grid gap-px overflow-hidden rounded-[24px] bg-white/16 md:grid-cols-4">

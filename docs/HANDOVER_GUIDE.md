@@ -2,42 +2,42 @@
 
 ## プロジェクト概要
 
-ITS DAY公式Webサイトです。主要プログラムは `3Days School` と `スラムツアー` です。
+ITS DAY公式Webサイトです。固定ページはコードで管理し、活動レポートと募集情報はmicroCMSで更新します。
 
 ## 主なファイル
 
-- `app/`: ページ
-- `components/`: 共通部品
-- `lib/site-data.ts`: 固定データ
-- `lib/microcms.ts`: microCMS接続
-- `public/images/`: 画像
+- `app/`: 各ページ
+- `components/`: Header、Footer、PageHeroなどの共通部品
+- `lib/site-data.ts`: FAQ、活動内容、活動実績の共通データ
+- `lib/microcms.ts`: microCMS取得処理
+- `lib/seo.ts`: サイトURL、OGP、metadata共通設定
+- `public/images/`: サイトで使用する写真
 - `docs/`: 運用ドキュメント
 
-## 更新時の判断
+## 更新の切り分け
 
-- 活動レポートや募集情報を更新したい: microCMS
-- FAQや活動実績の文章を変えたい: `lib/site-data.ts`
-- ページの見た目や構成を変えたい: `app/` または `components/`
+- 活動レポートや募集情報を増やす: microCMS
+- FAQ、活動実績、固定ページ文章を直す: コード修正
+- デザインやページ構成を変える: コンポーネントまたはページ修正
 
-## 公開前の人間確認
+## 公開前に必ず確認すること
 
+- `pnpm lint`
+- `pnpm build`
 - 写真掲載許可
-- 法務確認
-- 問い合わせ窓口
-- 応募フォームURL
-- 募集情報の日程、料金、締切
-- 活動実績の数字
+- プライバシーポリシー
+- microCMSの公開状態
+- Instagramと問い合わせメールの運用
+- `NEXT_PUBLIC_SITE_URL`
 
-## 開発時の確認コマンド
+## 現在の公開導線
 
-```bash
-pnpm lint
-pnpm build
-```
+- 学生向け問い合わせ: Instagram DM
+- 一般問い合わせ: `wakana.oka.8@gmail.com`
+- 募集応募リンク: microCMS `recruitments.applicationUrl`
 
-## 本番で避けること
+## 注意
 
-- `.env` をGitに入れる
-- APIキーを `NEXT_PUBLIC_` 付きで公開する
-- 未確認の日程や料金を公開中の募集として出す
-- 写真掲載許可未確認の内部メモを画面に出す
+- microCMS APIキーをコードやGitHubへ入れないでください。
+- 古い募集情報を現在の募集として見せないでください。
+- 写真掲載許可が未確認のものは、人間が公開前に確認してください。
