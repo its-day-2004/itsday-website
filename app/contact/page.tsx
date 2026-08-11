@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Building2, ExternalLink, GraduationCap, Instagram, Mail } from "lucide-react";
+import { Building2, ExternalLink, GraduationCap, Instagram } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageFrame, PageHero } from "@/components/PageHero";
@@ -15,8 +15,6 @@ export const metadata: Metadata = createPageMetadata({
 
 const instagramUrl = "https://www.instagram.com/its_day_inslum?utm_source=qr";
 const contactEmail = "wakana.oka.8@gmail.com";
-const mailHref =
-  "mailto:wakana.oka.8@gmail.com?subject=ITS%20DAY%E3%81%B8%E3%81%AE%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B";
 
 const contactTypes = [
   "講演のご依頼",
@@ -78,16 +76,12 @@ export default function ContactPage() {
                 ))}
               </ul>
               <div className="mt-7 rounded-[18px] bg-paper p-5">
-                <p className="text-xs font-black text-mint-700">MAIL</p>
+                <p className="text-xs font-black text-mint-700">お問い合わせ先</p>
+                <p className="mt-2 text-sm leading-7 text-trust-900/70">
+                  以下のメールアドレスへご連絡をお願いいたします。
+                </p>
                 <p className="mt-2 break-all text-sm font-bold text-trust-900">{contactEmail}</p>
               </div>
-              <Link
-                href={mailHref}
-                className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-mint-700 px-6 py-3 text-sm font-black text-white"
-              >
-                <Mail size={18} />
-                メールで問い合わせる
-              </Link>
             </section>
           </div>
         </section>
